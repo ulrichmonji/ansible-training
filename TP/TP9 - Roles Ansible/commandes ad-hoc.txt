@@ -1,0 +1,6 @@
+- Installer git 
+    sudo yum install git -y
+- récupérer mes roles
+    ansible-galaxy install -r roles/requirements.yml
+-lancement du playbook
+    ansible-playbook  -i hosts.yaml  --ask-vault-pass wordpress.yaml

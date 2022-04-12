@@ -1,0 +1,19 @@
+!!!!!! Reprendre le répertoire de travail du  TP 7 !!!!!! 
+
+Les mots de passe sont en clair sur notre projet
+1 - On va chiffer nos informations sensible
+    - Dans votre projet ansible, créer le fichier files/secrets/credentials.yml
+    - Insérez une variable  vault_ansible_password: vagrant dans ce fichier
+    - dans l'inventaire, remplacer la valeur de votre mdp par cette variable
+        ansible_password: "{{ vault_ansible_password }}"
+    - Transformez le playbook webapp-v5.yaml en webapp-v6.yaml, afin de  rajouter une instruction vars_files vous 
+        permettant de spécifier un fichier de variables.
+          vars_files:
+            - files/secrets/credentials.yml
+    - Chiffrez le fichier avec ansible-vault et vérifier que le fichier devient illisible (mdp de chiffrement sera toto)
+        ansible-vault encrypt files/secrets/credentials.yml
+    - Relancer le playbook en lui indiquant qu'il doit nous demander le mdp du vault
+        Ajout de l'option --ask-vault-pass
+
+2 - Mettez en place un echange ssh par couple de clés public/privé et re-tester le playbook
+    commandes ssh-keygen et ssh-copy-id 

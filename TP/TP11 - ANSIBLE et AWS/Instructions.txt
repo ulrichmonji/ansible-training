@@ -1,0 +1,37 @@
+Il est question de deployer notre site web statique dans une VM WS
+
+- exporter les tokens en var d'env sur le serveur ansible
+    confer https://docs.ansible.com/ansible/latest/scenario_guides/guide_aws.html
+    export AWS_ACCESS_KEY_ID='AK123'
+    export AWS_SECRET_ACCESS_KEY='abc123'
+
+- Créer la clé privée et restreindre les droits
+    chmod 400 ../devops.pem
+
+
+
+- Télécharger les roles pip et docker
+    ansible-galaxy install -r roles/requirements.yml
+
+
+- Créer un playbook deploy.yaml respectant les instructions suivantes : 
+    - il aura 2 plays : 
+        + le premier :
+          * aura pour cible localhost avec la variable ansible_connection: local
+          * Installer python-pip en pre_task
+          * Installer les packages boto, boto3, botocore en pre_task
+          * Créer le Security Group avec le module ec2_group
+          * Créer le serveur de production avec le module ec2
+          * récupérer l'ip publique avec le module set_fact
+          * Ajout de tag a l'instace avec le module ec2_tag
+        + le deuxieme ! 
+          * Installe docker
+          * deploie un container apache via docker
+    - utilisation du module ec2
+      doc : https://docs.ansible.com/ansible/latest/collections/amazon/aws/ec2_module.html
+      requiert python >= 2.6
+      requiert la librairie pyhton boto
+
+- Lancement du playbook
+    ansible-playbook deploy.yml
+

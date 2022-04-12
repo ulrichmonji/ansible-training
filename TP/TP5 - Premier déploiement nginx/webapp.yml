@@ -1,0 +1,17 @@
+---
+- name: "first deployment"
+  become: yes
+  hosts: prod
+  tasks:
+    - name: "Clean Folder"
+      file:
+        path: /usr/share/nginx/html
+        state: absent
+    - name: "Create Folder"
+      file:
+        path: /usr/share/nginx/html/
+        state: directory
+    - name: "Copy index.html"
+      copy:
+        content: "Bonjour"
+        dest: /usr/share/nginx/html/index.html

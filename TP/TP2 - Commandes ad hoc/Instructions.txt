@@ -1,0 +1,19 @@
+Créez un cluster (1 ansible et 1 client nommé client1)
+Connectez vous sur le serveur ansible
+Créez un répertoire de travail TP2 et se déplacer dans ce dernier
+Créez un fichier d’inventaire hosts
+    => le fichier d'inventaire est fourni avec les instructions du TP, il faudra copier coller
+Ajouter le fichier ansible.cfg donné dans votre répertoire de travail TP2
+Utilisez une commande ad-hoc pour tentez de pinger le client ansible
+    => Utilisation du module ping de ansible
+Utilisez une commande ad-hoc pour créer un fichier toto.txt avec le contenu « bonjour eazytraining » et qui se trouvera dans le dossier /home/vagrant/toto.txt sur le client ansible
+    => Utilisation du module copy de ansible, ou tout autre module de votre choix
+Vérifiez que le fichier a bien été créé avec le contenu
+Rajoutez un client nommé client2 dans le fichier inventaire
+    => On pourra éditer le Vagrantfile, à la ligne 19, on donnera 2 comme valeur à la variable clients si c'est pas déja le cas
+        Ensuite on relance la commande vagrant up --no-provision pour creation de la VM dans virtualbox
+Relancez l’action de ping et de création de fichier sur les 2 clients maintenant et vérifiez le resultat  
+Relancer la commande ping, et rajouter l'option -o de la commande ansible pour avoir l'output sur une seule ligne
+Testez l’effet du module « setup » sur votre inventaire
+Comment connaitre sa RAM via Ansible ?
+    => Regardez l'option filter du module setup, on pourra utiliser la variable ansible_memtotal_mb

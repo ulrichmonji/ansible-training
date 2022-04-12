@@ -1,0 +1,8 @@
+PS : Sur chacune de ces commandes, il est possible de spécifier un nom de machine sur laquelle appliquer l'instruction
+
+- vagrant up : lancer  les VMs
+- vagrant up --provision  : lancer  les VMs avec le script de provision
+- vagrant up --no-provision  : lancer  les VMs sans exécuter le script de provision
+- vagrant halt : éteindre les VMs
+- vagrant destroy : détruire les VMs de virtualbox
+- vagrant ssh <nom_machine> : se connecter en ssh à une VM avec le user vagrant

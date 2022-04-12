@@ -1,0 +1,7 @@
+---
+- name: "install nginx"
+  import_playbook: nginx.yml
+
+- name: "deploy webapp-v2"
+  import_playbook: webapp-v2.yml
+...

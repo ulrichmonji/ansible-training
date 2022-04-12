@@ -1,0 +1,60 @@
+Partie 1 : 
+
+1 - Créez un dossier webapp qui va contenir tous les fichiers de notre projet
+2 - Créez un fichier d’inventaire appelé prod.yml (au format yaml) contenant 
+    un groupe prod avec comme seul membre notre client1
+3 - Créez un dossier group_vars qui va contenir un fichier nommé prod qui 
+    contiendra les informations de connexion à utiliser par ansible (login et mot de passe)
+4 - Comment faites vous pour installer nginx sur une machine, le démarrer et le 
+    rendre enable ? Donnez la suite des commanes shell pour faire celà 
+    Aide : 
+        sudo yum install epel-release 
+        sudo yum install nginx
+        sudo systemctl start nginx
+        sudo systemctl enable nginx
+5 - creer un fichier nginx.yml qui permet d’installer nginx tout en s’assurant que yum 
+    update est ok et que nginx soit start + enable.
+    PS : 
+        - Reinitialiser le mdp root sur vos machines clientes en mettant "root"
+        - la variable ansible_sudo_pass: root permettra de passer le mdp root
+        - Penser au become: yes pour autoriser le passage en root
+        - le firewalld doit etre desactivé (ca dépend de votre OS)
+     
+
+Partie 2 : 
+1 - Faire un deuxième playbook webapp.yml permettant de deployer un site sur la machine 
+    client1 avec bonjour dans un fichier index.html
+
+2 - Faire une v2 de webapp.yaml (webapp-v2.yaml) pour déployer le site internet static-website
+        PS : repos du site statique : https://github.com/diranetafen/static-website-example.git
+
+3 - Faire un playbook deploy-webapp.yml qui lance les deux playbook nginx.yaml et webapp-v2.yaml
+        Ps : Il faudra chercher comment importer un playbook dans un autre
+
+Partie 3 : Template Jinja et conditions
+1- Modifiez l'inventaire afin de rajouter 2 nouveaux groupe, staging et proxy
+    la machine client2 sera dans le groupe staging
+    Le serveur ansible (aussi nommé reverse_proxy) fera office de reverse proxy, et sera à la fois dans les groupes prod et proxy
+
+
+2- Faire une v3 de webapp.yaml (webapp-v3.yaml)
+    Le playbook aura deux plays tels que : 
+        - Un play qui installe et personalise nginx sur les machine de prod et staging
+        - Un play qui installe nginx en mode reverse proxy sur les serveurs  proxy de production
+            - la location /staging pour le serveurs de staging, 
+            - la location /prod pour le serveur de production
+            - Un template de conf nginx en mode proxy est fourni, il faudrait le déposer dans "/etc/nginx/conf.d/{{ fqdn }}.conf"
+    La personnalisation des sites web se fera en utilisant un template Jinja pour modifier le 
+    fichier index.html du serveur. 
+    Ce playbook devra respecter le principe d'indempotence d'ansible
+    Pour celà, les arguments clone, update et force du module git pourront vous aider            
+    PS : Le module template sera utile
+    On rajoutera un handler qui redémarre le service nginx si besoin
+
+
+2 - On voudrait variabiliser le playbook en fonction des serveurs, on suppose qu'on a des serveurs Debian
+    et des serveurs Centos
+    Rajouter des conditions au playbook afin qu'il puisse se dérouler en fonction de la nature
+    de l'OS du serveur cible (fact ansible_os_family à exploiter).
+    Pour cela, il faudra créer une nouvelle version du playbook webapp (webapp-v4.yaml) et éventuellement une nouvelle 
+    version du playbook nginx.yml (nginx-v2.yml)

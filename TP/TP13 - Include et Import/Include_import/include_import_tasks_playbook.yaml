@@ -1,0 +1,17 @@
+---
+- hosts: client1
+  tasks:
+
+     - debug:
+         msg: ===================== Testing include_tasks =====================
+
+     - include_tasks: include_tasks.yaml
+       when: include_tasks_var is not defined
+
+     - debug:
+         msg: ===================== Testing import_tasks ======================
+
+     - import_tasks: import_tasks.yaml
+       when: import_tasks_var is not defined
+
+...

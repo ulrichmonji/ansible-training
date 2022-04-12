@@ -1,0 +1,19 @@
+---
+- name: "deployment of static website v2"
+  become: yes
+  hosts: prod
+  tasks:
+    - name: "Install git"
+      yum:
+        name: git
+        state: present
+        update_cache: yes
+    - name: "Clean Folder"
+      file:
+        path: /usr/share/nginx/html
+        state: absent
+    - name: "git clone to nginx folder"
+      git:
+        repo: https://github.com/diranetafen/static-website-example.git
+        dest: /usr/share/nginx/html/
+...

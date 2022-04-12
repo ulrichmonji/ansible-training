@@ -1,0 +1,6 @@
+ansible-galaxy collection init ulrich
+cd ulrich/webapp
+git submodule add https;//url_role_nginx.git nginx
+git submodule add https;//url_role_webapp.git webapp
+git addgit commit -m "ajout des submodules"
+git,push origin main

@@ -1,0 +1,12 @@
+Votre fichier d'inventaire hosts du TP2 contient deux machines client1 et client2 et est écris en format INI
+Etant donné les considérations  suivantes, Modifiez le fichier hosts afin qu’il soit au format yaml
+    - Un inventaire en Yaml commencera par le groupe "all", 
+    - Ce groupe all est l'ancêtre de tous les groupes dans Ansible
+    - Dans un groupe, l'attribut "hosts" permets de définir la liste des machines associées au groupe
+    - chaque machine pourra avoir ses caractéristiques
+    - "all" et "hosts" sont des variables de types hash (dictionnaires)
+    - Chaque machine d'un groupe est une variable de type hash (dictionnaires)
+    - "all" et "hosts" sont des mots clés du langage Ansible
+
+
+Une fois l'inventaire en yaml, testez à nouveau vos commandes ad-hoc avec le nouveau fichier d’inventaire.

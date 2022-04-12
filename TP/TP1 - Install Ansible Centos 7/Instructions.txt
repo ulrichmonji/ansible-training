@@ -1,0 +1,46 @@
+!!!!!!!!!!!!!!! Nous allons installer ansible à l'aide de pip3 python 3 !!!!!!!!!!!!!!!
+
+De facon générale, Ansible a besoin de python pour fonctionner, par défaut, python 2 est installé sur les machines Linux.
+Python 2  étant deprecated, il est conseillé d'utiliser python 3, du coup il faudra l'installer.
+Ce qui sous entend l'utilisation de pip3
+  => Dans ce lab, on va utiliser la méthode 1, avec python 3 (pip3)
+
+######################################################################################################
+Méthode 1 : via  pip3 (pour python 3 ) 
+!!!!! C'est ceci qu'on doit utiliser !!!!!!
+######################################################################################################
+
+- MAJ du système
+  yum -y update
+- Install des release epel  
+  yum -y install epel-release
+- Installation de python 3  
+  yum install -y python3
+- Installation de pip3   
+  curl -sS https://bootstrap.pypa.io/pip/3.6/get-pip.py | sudo python3
+- Installation de ansible via pip3  
+  pip3 install ansible  #ou encore /usr/local/bin/pip3 install ansible
+- Vérifier la Version de ansible
+  ansible --version  
+
+######################################################################################################
+Méthode 2 : Via yum
+######################################################################################################
+- Mise à jour du système
+  sudo yum update -y
+- installer les release epel
+  sudo yum install epel-release -y
+- Installer Ansible
+  sudo yum install ansible -y 
+- Vérifier la Version de ansible
+  ansible --version
+
+
+Une fois installé, il est temps de tester le fonctionnement : 
+
+- Créer le fichier /etc/ansible/ansible.cfg et vérifier qu'il est pris en compte
+- Créer le fichier ~/.ansible.cfg et vérifier qu'il prend à présent la main
+- Créer un fichier ansible.cfg dans votre répertoire courant et vérifier qu'il prend la main
+- Setter la variable d'env ANSIBLE_CONFIG et mettre le fichier /tmp/my_custom_config.cfg et vérifier qu'il prend la main
+
+Nettoyer tous les fichiers créés et enlevez la variable d'env rajoutée

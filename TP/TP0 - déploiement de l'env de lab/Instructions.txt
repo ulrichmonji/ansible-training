@@ -1,0 +1,56 @@
+Le fichier  "commandes de base vagrant" fournit avec l'enoncé vous fournit quelques commandes de base sur vagrant
+
+Le Lab sera constitué essentiellement de VMs installées sous virtualbox
+    -> Cela sous entend qu'on devra installer virtualbox.
+
+Pour faciliter le déploiement sous virtualbox, nous utilisons l'outil vagrant (Infra as Code)
+    -> Cela sous entend l'installation de vagrant 
+    
+Comme VMs, nous allons avoir  le serveur ansible et une machine cible à piloter tel que  : 
+    - Serveur ansible : 
+        * hostname : ansible
+        * ip : 192.168.99.10
+    - Serveur client1 : 
+        * hostname : client1
+        * ip : 192.168.99.11
+    - Serveur client2 : 
+        * hostname : client2
+        * ip : 192.168.99.12
+##################################          Installation de virtualbox          ##################################
+Sous windows : 
+    Télécgarger l'exécutable suivant et lancer l'assistant d'installation : 
+    https://download.virtualbox.org/virtualbox/6.1.26/VirtualBox-6.1.26-145957-Win.exe
+
+##################################           Installation de vagrant            ##################################
+Sous windows : 
+    - Télécgarger l'exécutable suivant et lancer l'assistant d'installation  : 
+        https://releases.hashicorp.com/vagrant/2.2.18/vagrant_2.2.18_x86_64.msi
+    - Ouvrir un terminal powershell et taper la commande  : 
+        vagrant --version
+
+##################################           déploiement des VMs                ##################################
+- Créer un répertoire de travail ansible
+- Ouvrir un terminal et se déplacer dans le répertoire de travail
+- Taper commande suivante : vagrant init -m
+    - Cette commande va créer un un répertoire caché nommé .vagrant et un fichier nommé Vagrantfile
+        Le .vagrant est un répertoire propre a vagrant, et le Vagrantfile est le fichier decrivant votre Infra
+- Deux fichiers vous sont fourni par le formateur, 
+    - Vagrantfile : c'est votre Infra
+    - install_ansible.sh :  un script shell de provisionning qui pourra être éxécuté sur le serveur ansible
+        Ce script contient l'ensemble des commandes pour installer asible sur une machnie Centos 7
+- Copier les deux fichiers fournit dans le répertoire de travail ansible, (Il faudra écraser le Vagrantfile existant)
+- Depuis le terminal, taper la commande suivante : vagrant up --no-provision
+    - La commande va lancer de déploiement des deux serveurs ansible sur virtualbox
+    - l'option --no-provision de la commande  permet de ne pas lancer le script de provisionning, 
+        nous allons installer ansible manuellement par nos soins dans un premier temps
+        Pour celà, il ne reste plus qu'a se connecter aux machines et travailler
+
+- Pour se connecter aux machines, 2 méthodes : 
+    1 - Via ssh classique avec un client ssh, vous avez l'IP plus haut ou dans le Vagrantfile 
+        hostname : ansible ou client1
+        Username : vagrant
+        Password : vagrant
+    2 - Depuis le repertoire de travail, taper la commande : vagrant ssh <hostname>
+        hostname : ansible ou client1
+        Password : vagrant
+

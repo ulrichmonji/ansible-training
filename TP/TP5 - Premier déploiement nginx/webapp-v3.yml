@@ -1,0 +1,57 @@
+---
+- name: "deployment of static website v3"
+  become: yes
+  hosts: "prod:staging:!proxy"
+  tasks:
+    - name: "Install git"
+      yum:
+        name: git
+        state: present
+    - name: "git clone to nginx folder"
+      git:
+        repo: https://github.com/diranetafen/static-website-example.git
+        dest: /usr/share/nginx/html/
+        clone: no
+#        update: yes
+#        force: yes
+    - name: Generate html
+      template:
+        src: index.html.j2
+        dest: /usr/share/nginx/html/index.html
+      notify: index.html changed
+
+  handlers:
+    - name: index.html changed
+      service:
+        name: nginx
+        state: restarted
+
+
+- name: "deployment of reverse proxy"
+  become: yes
+  hosts: prod:&proxy
+  tasks:
+    - name: "Create web root folder"
+      file:
+        path: /usr/share/nginx/{{ fqdn }}/
+        state: directory
+    - name:
+      template:
+        src: index.html.j2
+        dest: /usr/share/nginx/{{ fqdn }}/index.html
+    - name: "Add local DNS entry"
+      lineinfile:
+        line: 192.168.99.10 www.monreverseproxy.com
+        path: /etc/hosts
+        state: present
+    - name: deploy reverse proxy
+      template:
+        src: my_reverse_proxy.conf.j2
+        dest: /etc/nginx/conf.d/{{ fqdn }}.conf
+      notify: "conf nginx changed"
+  handlers:
+    - name: "conf nginx changed"
+      service:
+        name: nginx
+        state: restarted
+...

@@ -1,0 +1,26 @@
+- Transformer l'inventaire de ini vers yaml ou json
+    ansible-inventory -i hosts.ini -y --list > hosts.yaml
+    ansible-inventory -i hosts.ini  --list > hosts.json
+- Commandes de test : 
+    ansible -i hosts.ini client -m ping
+    ansible -i hosts.ini prod -m ping
+    ansible -i hosts.ini all -m copy -a "dest=/home/vagrant/toto.txt content='bonjour eazytrining {{ env }} '"
+
+- Avec une commande ad hoc, afficher toutes les machines de l'inventaire
+    ansible all --list-hosts
+- Avec une commande ad hoc, afficher les machines du groupe prod 
+    ansible prod --list-hosts
+- Avec une commande ad hoc, afficher la machine client1 
+    ansible client1 --list-hosts
+- Utiliser la commande ansible-inventory pour afficher les variables associée à la machine client1
+    ansible-inventory --host  client1    
+- Modifier le port d'ecoute du ssh sur le client1 en le mettant en 2222
+- Tester une commande  vers ce client et confirmer que c'est KO
+- Adapter l'inventaire afin de pourvoir setter le port de connexion ssh sur ce client
+    - variable ansible_port=2222
+- Rajouter le serveur ansible à l'inventaire, dans un groupe controle avec une connexion local (pas de ssh)
+    - variable ansible_connection=local
+- Tester de nouveau la commande ping sur tous les hôtes
+- Transformer l'inventaire YAML en JSON avec la commande suivante : 
+    python3 -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin, Loader=yaml.FullLoader), sys.stdout, indent=4)' < hosts.yaml > hosts.json
+- Tester vos commandes ad hoc en utilisant l'inventaire au format json et validez que tout fonctionne bien    

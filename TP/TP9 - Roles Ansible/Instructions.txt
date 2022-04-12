@@ -1,0 +1,23 @@
+Créez un cluster (1 ansible et 1 client) 
+Recupérez votre code provenant du TP-7
+Créez un playbook wordpress.yml afin de déployez wordpress 
+    -> sous forme de conteneur docker (cela sous entend l'installation de Docker si le role ne le fait pas)
+    -> sur le client à l’aide du rôle https://github.com/diranetafen/ansible-role-containerized-wordpress.git
+Lancez le playbook et vérifiez que ça marche
+Vous pouvez exposer wordpress sur le port externe de votre choix, 80 ou 8080 ou autre
+
+Pour récupérer mes roles définit dans un fichier roles/requirements.yml, je tape la commande : 
+ansible-galaxy install -r roles/requirements.yml
+
+En pre_tasks du playbook, on aura : 
+  pre_tasks:
+    - name: create www data
+      user: 
+        name:  www-data
+        state: present
+    - name: Install docker-compose on target
+      get_url:
+        url: "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64"
+        dest: /usr/bin/docker-compose     
+        mode: 'u+x,g+x'
+

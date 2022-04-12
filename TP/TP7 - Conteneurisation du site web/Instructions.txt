@@ -1,0 +1,15 @@
+A présent, on sait comment déployer un conteneur docker sur la machine distante, confer TP6 sur Mario
+On souhaite à présenter embarquer l'application web du TP dans un conteneur docker
+
+Copiez le contenu du répertoire de travail du TP5 dans un nouveau TP, ou alors, retournez dans ce répertoire de travail
+
+Partie 1 :  Conteneurisation de  l'application
+
+Créer une version 5 du playbook webapp (webapp-v5.yml).
+Sur la cible, il devra 
+    - créer un dossier webapp et qui devra se trouver dans le ~ de vagrant
+    - déposer le fichier index.html dans webapp
+    - déployer un conteneur apache qui va monter dans le répertoire qui va bien webapp
+le port externe sera variabilisé via une variable “port” de valeur 8090 cette variable devra s’appliquer à l’hôte client
+
+PS : Le module docker_container sera utile

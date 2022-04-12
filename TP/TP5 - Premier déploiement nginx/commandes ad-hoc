@@ -1,0 +1,9 @@
+Installtion de ansible-lint : 
+pip3 install ansible-lint
+
+Checker l'indentation du playbook
+ansible-lint nginx.yml
+
+Lancement du playbook
+ansible-playbook -i hosts.yml -vvv deploy.yml
+

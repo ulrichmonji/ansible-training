@@ -1,0 +1,15 @@
+   server {
+       server_name   {{ fqdn }};
+       listen        80;
+       root   /usr/share/nginx/{{ fqdn }};
+{% for group in ["staging", "prod"] %}    
+       location "/{{ group }}" {
+       {% if group == "staging" %}        
+               proxy_pass http://192.168.99.12/;
+       {% else %}
+               proxy_pass http://192.168.99.11/;
+       {% endif %}
+
+       }
+{% endfor %}
+   }

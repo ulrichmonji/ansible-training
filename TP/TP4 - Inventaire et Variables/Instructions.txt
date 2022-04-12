@@ -1,0 +1,27 @@
+Prérequis : 
+Sur le serveur ansible, créer un nouveau répertoire de travail nommé TP4 et déplacez vous a l'intérieur
+1 - Créez un fichier hosts.ini au format INI avec les modalités d’inventaire suivant
+    - Tous les hôtes via le groupe « all » devront avoir pour login user vagrant
+    - Le client1 devra faire partie d’un groupe appeler « prod »
+    - Le mot de passe à utiliser pour toutes connexion ssh devra être vagrant pour toutes les machines du groupe « prod »
+    - La variable « env » devra être égale à « production » pour toutes les machines du groupe « prod »
+2 - Créez ensuite un fichier hosts.yaml, version yaml du fichier ini
+    - vous pourrez utiliser la commande ansible-inventory pour vous faciliter la tâche
+3 - Dans la suite, on travaillera avec la version yaml de l'inventaire. Faites une refonte du fichier hosts.yaml tel que : 
+    - le fichier host.yml contiendra uniquement les groupes et les noms de machine
+    - toutes les variables seront reparties dans les host-vars et group_vars
+4 - Avec une commande ad hoc, afficher toutes les machines de l'inventaire
+5 - Avec une commande ad hoc, afficher les machines du groupe prod 
+6 - Avec une commande ad hoc, afficher la machine client1 
+7 - Utiliser la commande ansible-inventory pour afficher l'inventaire sous forme de graphe
+8 - Utiliser la commande ansible-inventory pour afficher les variables associée à la machine client1
+9 - Modifier le port d'ecoute du ssh sur le client1  (ou le client2 si vous en possedez) en le mettant en 2222
+10 - Tester une commande ad hoc vers ce client et confirmer que c'est KO
+11 - Adapter l'inventaire afin de pourvoir setter le port de connexion ssh sur ce client
+    - variable ansible_port=2222 (attention, en yaml, c'est les ":" et non "=")
+12 - Rajouter le serveur ansible à l'inventaire, dans un groupe controle avec une connexion local (pas de ssh)
+    - variable ansible_connection=local
+13 - Tester de nouveau la commande ping sur tous les hôtes
+14 - Transformer l'inventaire YAML en JSON avec la commande suivante : 
+    python3 -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin, Loader=yaml.FullLoader), sys.stdout, indent=4)' < hosts.yaml > hosts.json
+15 - Tester vos commandes ad hoc en utilisant l'inventaire au format json et validez que tout fonctionne bien    

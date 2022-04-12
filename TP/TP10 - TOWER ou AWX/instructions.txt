@@ -1,0 +1,73 @@
+Dans ce TP, il faudrait déployer Tower/AWX et refaire le TP5 
+- Lancer un client et une image franela/dind sur le labs eazytrainning
+- cloner le repos https://github.com/diranetafen/cursus-devops.git et se deplacer a l'intérieur
+- aller dans le dossier tower et desarchiver l'archive contenue dans la home: 
+  tar -xzvf archive.tar.gz -C ~/
+- Installer docker
+  wget https://get.docker.com/
+  curl -fsSL https://get.docker.com -o get-docker.sh
+  sh get-docker.sh
+  sudo usermod -aG docker vagrant
+     => Ne pas oublier de se deconnecter du terminal et ensuite se reconnecter pour prise en compte du changement de groupe
+  systemctl start docker
+  systemctl enable docker
+
+- Installer docker-compose
+   sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+   sudo chmod +x /usr/local/bin/docker-compose
+- se déplacer dans /home/vagrant/.awx/awxcompose
+- lancer le docker compose
+- se connecter à l'IHM via le port 80
+  login : admin 
+  password : password
+- mots de passe vault du repos pour le déploiement via tower
+
+
+Depuis Tower, on va créer dans l'ordre : 
+1 - Le projet
+  On créé un nouveau projet
+    nom : tower-ansible-demo
+    type scm : git
+    url de scm : https://github.com/choco1992/tower-ansible-demo.git
+    branche : master
+    organisation : Default
+  On enregistre
+
+2 - L'inventaire
+  On créé un nouvel inventaire
+    Name : tower-ansible-demo
+  On enregistre
+  on va dans Sources
+    name: github_tp_mario
+    source : provenance d'un projet
+    fichier d'inventaire : prod.yaml
+  On enregistre
+  cocher l'icone de synchronisation en bas à droite pour lire le fichier d'inventaire
+  une fois la synchro terminée, aller dans hôte, et visualiser les hôtes  
+
+
+3 - les credentials (On en créé 2, celui pour la machine, et celui pour le vault)
+  on créé un nouveau (le vault)
+    Name: vault key
+    credential type : vault (coffre fort en francais)
+    vault password : devops
+  on save
+  on créé un seconde (la machine)
+    Name: machine
+    credential type : vault (coffre fort en francais)
+    MÉTHODE D'ESCALADE PRIVILÉGIÉE : sudo
+    MOT DE PASSE POUR L’ÉLÉVATION DES PRIVILÈGES : vagrant
+
+  on save
+4 - Les jobs
+  On va dans modele (template)
+    on créé un nouveau modele de job
+     Name: deploy web app
+     job type : run/Executer
+     inventaire: tower-ansible-demo
+     projet: tower-ansible-demo
+     il lit automatiquement les playbook, on choisir le deploy.yml
+     credentials: on selectionne le sudo et le vault
+     options: cocher escalade de privilege
+    On save
+
