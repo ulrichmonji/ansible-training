@@ -4,7 +4,8 @@ Partie 1 :
 2 - Créez un fichier d’inventaire appelé prod.yml (au format yaml) contenant 
     un groupe prod avec comme seul membre notre client1
 3 - Créez un dossier group_vars qui va contenir un fichier nommé prod qui 
-    contiendra les informations de connexion à utiliser par ansible (login et mot de passe)
+    contiendra les informations de connexion à utiliser par ansible (login et mot de passe).
+    N'oublieez pas les host_vars devant contenir au moins l'IP des machines clientes
 4 - Comment faites vous pour installer nginx sur une machine, le démarrer et le 
     rendre enable ? Donnez la suite des commanes shell pour faire celà 
     Aide : 
@@ -12,10 +13,11 @@ Partie 1 :
         sudo yum install nginx
         sudo systemctl start nginx
         sudo systemctl enable nginx
-5 - creer un fichier nginx.yml qui permet d’installer nginx tout en s’assurant que yum 
-    update est ok et que nginx soit start + enable.
+5 - creer un playbook nginx.yml qui permet d’installer nginx tout en s’assurant que le système est à jour 
+    et que nginx soit start + enable.
     PS : 
-        - Reinitialiser le mdp root sur vos machines clientes en mettant "root"
+        - Si le sudo requiert un mot de passe sur vos machines clientes, alors  reinitialisez le mdp 
+			root en mettant "root" comme valeur sur ces machines
         - la variable ansible_sudo_pass: root permettra de passer le mdp root
         - Penser au become: yes pour autoriser le passage en root
         - le firewalld doit etre desactivé (ca dépend de votre OS)
@@ -23,7 +25,7 @@ Partie 1 :
 
 Partie 2 : 
 1 - Faire un deuxième playbook webapp.yml permettant de deployer un site sur la machine 
-    client1 avec bonjour dans un fichier index.html
+    client1 avec "Bonjour" dans un fichier index.html
 
 2 - Faire une v2 de webapp.yaml (webapp-v2.yaml) pour déployer le site internet static-website
         PS : repos du site statique : https://github.com/diranetafen/static-website-example.git

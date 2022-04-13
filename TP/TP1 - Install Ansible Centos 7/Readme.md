@@ -45,7 +45,7 @@ ansible --version
 #### Installation de sshpass
 Nativement, **ssh** ne donne pas la possibilité de fournir un mot de passe connexion de façon non interactive lors de la connexion. C'est voulu par les developpeurs car celà consititut une faille de sécurité. Du coup, afin d'apporter cette fonctionnalité, il est nécessaire d'avoir un outil tiers, en l'occurence **sshpass**. Pour l'installer, rien de plus simple : 
 ```
-sudo yum -y sshpass
+sudo yum install -y sshpass
 ```
 #### Surcharge du fichier de conf ansible.cfg
 
