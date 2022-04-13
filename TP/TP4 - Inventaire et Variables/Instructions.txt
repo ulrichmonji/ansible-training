@@ -7,9 +7,9 @@ Sur le serveur ansible, créer un nouveau répertoire de travail nommé TP4 et d
     - La variable « env » devra être égale à « production » pour toutes les machines du groupe « prod »
 2 - Créez ensuite un fichier hosts.yaml, version yaml du fichier ini
     - vous pourrez utiliser la commande ansible-inventory pour vous faciliter la tâche
-3 - Dans la suite, on travaillera avec la version yaml de l'inventaire. Faites une refonte du fichier hosts.yaml tel que : 
+3 - Dans la suite, on travaillera avec la version yaml de l'inventaire. Faites une refonte du fichier hosts.yml tel que : 
     - le fichier host.yml contiendra uniquement les groupes et les noms de machine
-    - toutes les variables seront reparties dans les host-vars et group_vars
+    - toutes les variables seront reparties dans les host_vars et group_vars
 4 - Avec une commande ad hoc, afficher toutes les machines de l'inventaire
 5 - Avec une commande ad hoc, afficher les machines du groupe prod 
 6 - Avec une commande ad hoc, afficher la machine client1 

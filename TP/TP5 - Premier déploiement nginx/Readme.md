@@ -17,8 +17,11 @@ cat host_vars/client1
 ![](images/create_inventory_prod_yml.png)
 
 - Vérifier bien que le fichier group_vars de prod ressemble à ceci : 
+
 ![](images/create_group_vars_prod.png)
-- un exemple de host_vars ressemble à ceci : 
+
+- un exemple de host_vars ressemble à ceci :
+
 ![](images/create_host_vars_client1.png)
 
 #### Installation de nginx manuellement
@@ -71,11 +74,13 @@ ansible-playbook -i prod.yml webapp.yml
 ```
 Il ressemble à ceci : 
 ![](images/webapp_playbook.png)
+
 Et son execution donne à ceci : 
 ![](images/webapp_playbook_execution.png)
 
 A présent, il est question de tester que le site fonctionne. 
-Nous allons vérifier dans notre navigateur avec [l'ip du client1 comme url](http://192.168.99.11). On a ceci : 
+Nous allons vérifier dans notre navigateur avec [l'ip du client1 comme url](http://192.168.99.11). On a ceci :
+
 ![](images/webapp_playbook_test.png)
 
 #### Playbook webapp-v2.yml
@@ -85,7 +90,9 @@ cat webapp-v2.yml
 ansible-playbook -i prod.yml webapp-v2.yml
 ```
 Il ressemble à ceci : 
+
 ![](images/webapp_V2_playbook.png)
+
 Et son execution donne à ceci : 
 ![](images/webapp_playbook_v2_execution.png)
 
@@ -102,6 +109,7 @@ ansible-playbook -i prod.yml deploy-webapp.yml
 
 Il ressemble à ceci : 
 ![](images/deploy-webapp_yml.png)
+
 Et son execution donne à ceci : 
 ![](images/deploy-webapp_yml_execution.png)
 
@@ -113,20 +121,28 @@ sudo yum install tree -y
 cat ansible.cfg
 ```
 ![](images/ansible_cfg.png)
-Et mon projet ansible devrait ressembler à ceci : 
+
+Et mon projet ansible devrait ressembler à ceci :
 ![](images/workdir_after_part-2.png)
 
 ### Partie 3 : Template Jinja et conditions
 #### Modification de l'inventaire
 - Fichier **prod.yml**
+
 Il ressemblera à ceci :
+
 ![](images/edit_inventory.png)
+
 - Fichier **host_vars/client2**
+
 Il ressemblera à ceci :
+
 ![](images/create_host_vars_client2.png)
 
 - Fichier **host_vars/reverse_proxy**
+
 Il ressemblera à ceci :
+
 ![](images/create_host_vars_creverse_proxy.png)
 
 - Fichier **group_vars/all**, il faut biensur configurer l'authentification des autres machines
@@ -134,6 +150,7 @@ Il ressemblera à ceci :
 
 
 A ce stade mon projet qui ressemblera  à ceci :
+
 ![](images/workdir_state.png)
 
 #### Playbook webapp-v3.yml
@@ -143,7 +160,9 @@ cat webapp-v3.yml
 ansible-playbook webapp-v3.yml
 ```
 Il ressemble à ceci : 
+
 ![](images/webapp_V3_playbook.png)
+
 Avant de l'exécuter, ne pas oublier de créer les fichier de templates. Ils vous sont donné avec l'enoncé
 ```
 mkdir templates
@@ -152,4 +171,5 @@ vi templates/my_reverse_proxy.conf.j2
 ```
 
 Et son execution donne à ceci : 
+
 ![](images/webapp_playbook_v3
